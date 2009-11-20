@@ -12,7 +12,7 @@ module ActsAsFavorite
                                                 id, favorite_class.to_s ] )
           elsif method_sym.to_s =~ Regexp.new("^has_favorite_(\\w+)\\?")
             favorite_class = ($1).singularize.classify.constantize
-            Favorite.count( :include => :user, :conditions => [ 'favorites.user_id = ? AND favorites.favorable_type = ?', 
+            Favorite.count( :conditions => [ 'favorites.user_id = ? AND favorites.favorable_type = ?', 
                                                                 id, favorite_class.to_s ] ) != 0
           else
             super
