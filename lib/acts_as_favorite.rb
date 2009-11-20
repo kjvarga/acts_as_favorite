@@ -20,7 +20,7 @@ module ActsAsFavorite
 
       # Returns a polymorphic array of all user favorites 
       def all_favorites
-        self.favorites.map{|f| f.favorable }
+        self.favorites.find(:all, :include => :favorable).collect(&:favorable)
       end
             
       # Returns trur/false if the provided object is a favorite of the users
