@@ -9,7 +9,11 @@ module ActsAsFavorite
     
     module ClassMethods
       def acts_as_favorite_user
-        has_many :favorites
+        has_many :favorites do
+          def favorables
+            find(:all, :include => :favorable).collect(&:favorable)
+          end
+        end
         has_many :favorables, :through => :favorites
         include ActsAsFavorite::UserExtensions::InstanceMethods
         include ActsAsFavorite::Identity::UserExtensions::InstanceMethods 
